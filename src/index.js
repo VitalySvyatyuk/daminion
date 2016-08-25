@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from 'components/app';
+import BuyBox from 'components/app';
 
-render(<App />, document.getElementById('app'));
+var app = document.getElementById('app');
+render(<BuyBox />, app);
 
 
 
