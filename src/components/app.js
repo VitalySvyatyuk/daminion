@@ -1,4 +1,6 @@
 import React from 'react';
+import {RadioGroup, Radio} from "react-radio-group";
+
 
 var licenseList = [];
 var numberOfLicenses = [];
@@ -13,24 +15,37 @@ $.ajax({
   }
 })
 
-console.log(typeof(numberOfLicenses[0]));
 
 export default class BuyBox extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      selectedValue: "#1"
+    };
+  }
+
   render() {
     const licenses = this._getLicenses();
     const options = this._getOptions();
     return (
       <div className="container buy-box">
-        <form>
+        <RadioGroup name="licenses" selectedValue={this.state.selectedValue} 
+        onChange={this._handleChange.bind(this)}>
           {licenses}
+        </RadioGroup>
+
           <hr />
           Number of licenses: <select>{options}</select>
           <hr />
-          <input type="submit" value="BUY NOW" />
+          TOTAL: $ US
           <p>Selected plan:</p> 
-        </form>
       </div>
     );
+  }
+
+  _handleChange(value) {
+    this.setState({ selectedValue: value })
   }
 
   _getLicenses() {
@@ -61,7 +76,9 @@ class License extends React.Component {
   render() {
     return (
       <div>
-        <input type="radio" />{this.props.number}
+        <Radio value={this.props.number} />
+        LICENSE PLAN {this.props.number}
+        <span>${this.props.perLicense} per license</span>
       </div>
     );
   }
