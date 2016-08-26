@@ -15,13 +15,17 @@ $.ajax({
   }
 })
 
+var numbers = numberOfLicenses[0]['num'];
+var total = licenseList[0]['perLicense'] * numbers;
+
 
 export default class BuyBox extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      selectedValue: "#1"
+      selectedValue: 13,
+      comboValue: 1
     };
   }
 
@@ -36,16 +40,33 @@ export default class BuyBox extends React.Component {
         </RadioGroup>
 
           <hr />
-          Number of licenses: <select>{options}</select>
+          Number of licenses: 
+          <select id="numbers" value={this.state.comboValue} 
+          onChange={this._handleComboChange.bind(this)}>
+          {options}</select>
           <hr />
-          TOTAL: $ US
+          TOTAL: ${this._totalUS()} US
+          <br />
+          <button>BUY NOW</button>
           <p>Selected plan:</p> 
       </div>
     );
   }
 
+  _totalUS() {
+    return (
+      this.state.selectedValue * this.state.comboValue
+    )
+  }
+
+  _handleComboChange(event) {
+    this.setState({ comboValue: event.target.value })
+  }
+
   _handleChange(value) {
+    
     this.setState({ selectedValue: value })
+
   }
 
   _getLicenses() {
@@ -76,7 +97,7 @@ class License extends React.Component {
   render() {
     return (
       <div>
-        <Radio value={this.props.number} />
+        <Radio value={this.props.perLicense} />
         LICENSE PLAN {this.props.number}
         <span>${this.props.perLicense} per license</span>
       </div>
@@ -88,7 +109,7 @@ class License extends React.Component {
 class Option extends React.Component {
   render() {
     return (
-      <option>{this.props.option}</option>
+      <option value={this.props.option}>{this.props.option}</option>
     )
   }
 }
