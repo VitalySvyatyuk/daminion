@@ -1,5 +1,6 @@
 import React from 'react';
 import {RadioGroup, Radio} from "react-radio-group";
+import { render } from 'react-dom';
 
 
 var licenseList = [];
@@ -39,16 +40,16 @@ export default class BuyBox extends React.Component {
           {licenses}
         </RadioGroup>
 
-          <hr />
-          Number of licenses: 
-          <select id="numbers" value={this.state.comboValue} 
-          onChange={this._handleComboChange.bind(this)}>
-          {options}</select>
-          <hr />
-          TOTAL: ${this._totalUS()} US
-          <br />
-          <button>BUY NOW</button>
-          <p>Selected plan:</p> 
+        <hr />
+        <div className="col-md-6 div-num">Number of licenses:</div>
+        <div className="com-md-6 div-select-num"><select id="numbers" value={this.state.comboValue} 
+        onChange={this._handleComboChange.bind(this)}>
+        {options}</select></div>
+        <hr />
+        TOTAL: ${this._totalUS()} US
+        <br />
+        <button>BUY NOW</button>
+        Selected plan:
       </div>
     );
   }
@@ -66,7 +67,6 @@ export default class BuyBox extends React.Component {
   _handleChange(value) {
     
     this.setState({ selectedValue: value })
-
   }
 
   _getLicenses() {
@@ -97,9 +97,9 @@ class License extends React.Component {
   render() {
     return (
       <div>
-        <Radio value={this.props.perLicense} />
+        <Radio className="bebas" value={this.props.perLicense} />
         LICENSE PLAN {this.props.number}
-        <span>${this.props.perLicense} per license</span>
+        <span className="per-license">${this.props.perLicense} per license</span>
       </div>
     );
   }
@@ -113,3 +113,6 @@ class Option extends React.Component {
     )
   }
 }
+
+var app = document.getElementById('app');
+render(<BuyBox />, app);

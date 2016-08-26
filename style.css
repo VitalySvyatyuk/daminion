@@ -1,4 +1,37 @@
+@font-face {
+    font-family: "Bebas";
+    src: url('http//www.dafont.com/bebas.font');
+}
+
+.bebas {
+    font-family: "Bebas", Helvetica, Arial, sans-serif;
+}
+
 .buy-box {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-width: 15px;
+    border-color: #ebebeb;
+    border: 1px 1px 1px 1px;
+    border-style: solid;
     width:50%;
+    height: 600px;
 
 }
+
+.selected-plan {
+
+}
+
+.per-license {
+    float: right;
+}
+
+.div-num {
+    text-align: right;
+}
+
+.div-select-num {
+
+}
+
