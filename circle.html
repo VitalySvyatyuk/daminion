@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Circle inside circle</title>
+</head>
+<body>
+    <canvas id="outer" width="600" height="600"></canvas>
+
+    <script type="text/javascript">
+
+        var canvas = document.getElementById("outer");
+        var context = canvas.getContext("2d");
+        var centerX = canvas.width / 2;
+        var centerY = canvas.height / 2;
+        var radius = 300;
+
+        var lastGoodPositionX = 0;
+        var lastGoodPositionY = 0;
+
+
+
+
+        // context.globalCompositeOperation = 'destination-out'
+
+        function getMousePos(canvas, evt) {
+            var rect = canvas.getBoundingClientRect();
+            return {
+              x: evt.clientX - rect.left,
+              y: evt.clientY - rect.top
+            };
+        }
+
+        canvas.addEventListener('mousemove', function(evt) {
+
+            context.clearRect(0, 0, 600, 600);
+            context.beginPath();
+            context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+            context.stroke();
+
+            var mousePos = getMousePos(canvas, evt);
+
+            // console.log(mousePos.x + ',' + mousePos.y);
+
+            if ((mousePos.x - centerX)**2 + (mousePos.y - centerY)**2 < 62500) { //300 большой радиус - 50 маленький радиус
+                context.beginPath();
+                context.arc(mousePos.x, mousePos.y, 50, 0, 2 * Math.PI, false);
+                context.stroke();
+                lastGoodPositionX = mousePos.x;
+                lastGoodPositionY = mousePos.y;
+
+            } else {
+                context.beginPath();
+                context.arc(lastGoodPositionX, lastGoodPositionY, 50, 0, 2 * Math.PI, false);
+                context.stroke();
+                console.log(lastGoodPositionX, lastGoodPositionY);
+            }
+
+            // x and y must satisfy (x - center_x)^2 + (y - center_y)^2 < radius^2
+
+        }, false);
+
+    </script>
+
+</body>
+</html>
