@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Circle inside circle</title>
+</head>
+<body>
+    <canvas id="outer" width="600" height="600"></canvas>
+
+    <script type="text/javascript">
+
+        var canvas = document.getElementById("outer");
+        var context = canvas.getContext("2d");
+        var centerX = canvas.width / 2;
+        var centerY = canvas.height / 2;
+        var radius = 250;
+
+
+        function getMousePos(canvas, evt) {
+            var rect = canvas.getBoundingClientRect();
+            return {
+              x: evt.clientX - rect.left,
+              y: evt.clientY - rect.top
+            };
+        }
+
+        var startX = 230;
+        var startY = 230;
+
+        canvas.addEventListener('mousemove', function(evt) {
+
+            context.clearRect(0, 0, 600, 600);
+            context.beginPath();
+            context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+            context.lineWidth = 3;
+            context.strokeStyle = '#34648e';
+            context.stroke();
+
+            var mousePos = getMousePos(canvas, evt);
+            var tx = startX - centerX;
+            var ty = startY - centerY;
+            var radian = Math.atan2(ty,tx);
+
+            var innerTX = mousePos.x - startX;
+            var innerTY = mousePos.y - startY;
+
+            context.beginPath();
+            context.arc(startX, startY, 50, 0, 2 * Math.PI, false);
+            context.fillStyle = '#0294bf';
+            context.fill();
+            context.strokeStyle = '#0294bf';
+            context.stroke();
+            
+
+            if (innerTX**2 + innerTY**2 < (50)**2) {
+                startX = startX - innerTX/55;
+                startY = startY - innerTY/55;
+
+                if (tx**2 + ty**2 >= (radius - 50)**2) { 
+                    var newX = 300 + 197 * Math.cos(radian);
+                    var newY = 300 + 197 * Math.sin(radian);
+                    startX = newX;
+                    startY = newY;
+                    context.beginPath();
+                    context.arc(newX, newY, 50, 0, 2 * Math.PI, false);
+                    context.fillStyle = '#0294bf';
+                    context.fill();
+                    context.strokeStyle = '#0294bf';
+                    context.stroke();
+                } 
+            }
+
+        }, false);
+
+    </script>
+
+</body>
+</html>

@@ -12,10 +12,7 @@
         var context = canvas.getContext("2d");
         var centerX = canvas.width / 2;
         var centerY = canvas.height / 2;
-        var radius = 300;
-
-        var lastGoodPositionX = 0;
-        var lastGoodPositionY = 0;
+        var radius = 250;
 
 
         function getMousePos(canvas, evt) {
@@ -31,29 +28,32 @@
             context.clearRect(0, 0, 600, 600);
             context.beginPath();
             context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+            context.lineWidth = 3;
+            context.strokeStyle = '#34648e';
             context.stroke();
 
             var mousePos = getMousePos(canvas, evt);
             var tx = mousePos.x - centerX;
             var ty = mousePos.y - centerY;
-            var distance = Math.sqrt(tx**2 + ty**2);
             var radian = Math.atan2(ty,tx);
-            // var angle = radian/Math.PI * 180;
 
             if (tx**2 + ty**2 < (radius - 50)**2) { 
                 context.beginPath();
                 context.arc(mousePos.x, mousePos.y, 50, 0, 2 * Math.PI, false);
+                context.fillStyle = '#0294bf';
+                context.fill();
+                context.strokeStyle = '#0294bf';
                 context.stroke();
-                lastGoodPositionX = mousePos.x;
-                lastGoodPositionY = mousePos.y;
             } else {
-                var newX = 300 + 250 * Math.cos(radian);
-                var newY = 300 + 250 * Math.sin(radian);
+                var newX = 300 + 197 * Math.cos(radian);
+                var newY = 300 + 197 * Math.sin(radian);
                 context.beginPath();
                 context.arc(newX, newY, 50, 0, 2 * Math.PI, false);
+                context.fillStyle = '#0294bf';
+                context.fill();
+                context.strokeStyle = '#0294bf';
                 context.stroke();
             }
-
         }, false);
 
     </script>
