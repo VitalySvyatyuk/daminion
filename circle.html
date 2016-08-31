@@ -18,10 +18,6 @@
         var lastGoodPositionY = 0;
 
 
-
-
-        // context.globalCompositeOperation = 'destination-out'
-
         function getMousePos(canvas, evt) {
             var rect = canvas.getBoundingClientRect();
             return {
@@ -38,24 +34,25 @@
             context.stroke();
 
             var mousePos = getMousePos(canvas, evt);
+            var tx = mousePos.x - centerX;
+            var ty = mousePos.y - centerY;
+            var distance = Math.sqrt(tx**2 + ty**2);
+            var radian = Math.atan2(ty,tx);
+            // var angle = radian/Math.PI * 180;
 
-            // console.log(mousePos.x + ',' + mousePos.y);
-
-            if ((mousePos.x - centerX)**2 + (mousePos.y - centerY)**2 < 62500) { //300 большой радиус - 50 маленький радиус
+            if (tx**2 + ty**2 < (radius - 50)**2) { 
                 context.beginPath();
                 context.arc(mousePos.x, mousePos.y, 50, 0, 2 * Math.PI, false);
                 context.stroke();
                 lastGoodPositionX = mousePos.x;
                 lastGoodPositionY = mousePos.y;
-
             } else {
+                var newX = 300 + 250 * Math.cos(radian);
+                var newY = 300 + 250 * Math.sin(radian);
                 context.beginPath();
-                context.arc(lastGoodPositionX, lastGoodPositionY, 50, 0, 2 * Math.PI, false);
+                context.arc(newX, newY, 50, 0, 2 * Math.PI, false);
                 context.stroke();
-                console.log(lastGoodPositionX, lastGoodPositionY);
             }
-
-            // x and y must satisfy (x - center_x)^2 + (y - center_y)^2 < radius^2
 
         }, false);
 
