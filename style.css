@@ -1,13 +1,47 @@
 @font-face {
     font-family: "Bebas";
-    src: url('http//www.dafont.com/bebas.font');
+    src: url('./fonts/BebasNeueBold.otf');
 }
 
-.bebas {
+.license-plan {
+    letter-spacing: 1px;
     font-family: "Bebas", Helvetica, Arial, sans-serif;
+    color: #787878;
+    font-size: 24px;
+    padding-left: 10px;
+}
+
+.total {
+    line-height: 30px;
+    letter-spacing: 1px;
+    font-family: "Bebas", Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    color: #787878;
+}
+
+.totalsum {
+    color: #3388a8;
+}
+
+.form-control {
+    width: 60px;
+}
+
+.btn {
+    background-color: #33a845;
+    width: 180px;
+    height: 46px;
+
+    border-radius: 23px 23px 23px 23px;
+    color: #fff;
+}
+
+.div-buy {
+    text-align: center;
 }
 
 .buy-box {
+    background-color: #f8f8f8;
     margin-top: 20px;
     margin-bottom: 20px;
     border-width: 15px;
@@ -19,19 +53,63 @@
 
 }
 
-.selected-plan {
+.div-selected-plan {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #f8f8f8;
+    padding-left: 30px;
+    padding-right: 20px;
+    line-height: 64px;
+}
 
+.div-selected {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #b8d7e2;
+    background-color: #ebf4f7;
+}
+
+.bottom-selected-plan {
+    letter-spacing: 1px;
+    font-size: 18px;
+    color: #3388a8;
+}
+
+.currency {
+    letter-spacing: 1px;
+    font-family: "Bebas", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    vertical-align: top;
+    color: #3388a8;
 }
 
 .per-license {
+    letter-spacing: 1px;
+    font-size: 16px;
+    color: #787878;
     float: right;
 }
 
 .div-num {
+    letter-spacing: 1px;
+    height: 34px;
+    line-height: 34px;
     text-align: right;
 }
 
-.div-select-num {
+hr {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: none;
+    height: 1px;
+    color: #ccc;
+    background-color: #ccc;
+}
+
+input[type=checkbox], input[type=radio] {
 
 }
 
+.radio-group {
+    margin-top: 20px;
+}

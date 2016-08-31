@@ -18,7 +18,12 @@ $.ajax({
 
 var numbers = numberOfLicenses[0]['num'];
 var total = licenseList[0]['perLicense'] * numbers;
+var numbersDict = {};
 
+
+$(document).ready(function() {
+  $("div[id='13']").addClass("div-selected");
+});
 
 export default class BuyBox extends React.Component {
   constructor() {
@@ -26,6 +31,7 @@ export default class BuyBox extends React.Component {
 
     this.state = {
       selectedValue: 13,
+      selectedPlan: "#1",
       comboValue: 1
     };
   }
@@ -35,21 +41,32 @@ export default class BuyBox extends React.Component {
     const options = this._getOptions();
     return (
       <div className="container buy-box">
-        <RadioGroup name="licenses" selectedValue={this.state.selectedValue} 
+        <RadioGroup className="radio-group" name="licenses" selectedValue={this.state.selectedValue} 
         onChange={this._handleChange.bind(this)}>
           {licenses}
         </RadioGroup>
 
         <hr />
-        <div className="col-md-6 div-num">Number of licenses:</div>
-        <div className="com-md-6 div-select-num"><select id="numbers" value={this.state.comboValue} 
+        <br />
+        <div className="col-md-6 col-sm-6 div-num">Number of licenses:</div>
+        <div className="com-md-6 col-sm-6 div-select-num"><select id="numbers" className="form-control" value={this.state.comboValue} 
         onChange={this._handleComboChange.bind(this)}>
         {options}</select></div>
-        <hr />
-        TOTAL: ${this._totalUS()} US
         <br />
-        <button>BUY NOW</button>
-        Selected plan:
+        <br />
+        <br />
+        <hr />
+        <br />
+        <div className="div-buy">
+          <span className="total">TOTAL: <span className="totalsum">${this._totalUS()}</span></span><span className="currency">US</span>
+          <br />
+          <br />
+          <button className="btn">BUY NOW</button>
+          <br />
+          <br />
+          <br />
+          <span className="bottom-selected-plan">Selected plan: {this.state.selectedPlan}</span>
+        </div>
       </div>
     );
   }
@@ -65,12 +82,16 @@ export default class BuyBox extends React.Component {
   }
 
   _handleChange(value) {
-    
+    $("div[id='"+this.state.selectedValue+"']").removeClass("div-selected");
+    this.setState({ selectedPlan: numbersDict[value] })
     this.setState({ selectedValue: value })
+    
+    $("div[id='"+value+"']").addClass("div-selected");
   }
 
   _getLicenses() {
     return licenseList.map((license) => {
+      numbersDict[license.perLicense] = license.number;
       return (
         <License
           number={license.number} 
@@ -96,9 +117,9 @@ export default class BuyBox extends React.Component {
 class License extends React.Component {
   render() {
     return (
-      <div>
-        <Radio className="bebas" value={this.props.perLicense} />
-        LICENSE PLAN {this.props.number}
+      <div id={this.props.perLicense} className="div-selected-plan">
+        <Radio className="license-plan" value={this.props.perLicense} />
+        <span className="license-plan"> LICENSE PLAN {this.props.number}</span> 
         <span className="per-license">${this.props.perLicense} per license</span>
       </div>
     );
